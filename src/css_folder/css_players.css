@@ -130,6 +130,8 @@
     cursor: pointer;
     color: white;
     background-color: #840040;
+
+    outline: none;
 }
 .btn_generate:hover{
     background-color:#a2004f;
