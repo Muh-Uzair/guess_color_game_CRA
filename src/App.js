@@ -1,10 +1,44 @@
+import { Section_middle_component } from "./components_folder/Section_middle_component"
+import { Section_color_component } from "./components_folder/Section_color_component"
+import { useState } from "react"
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 export default function App() {
 
 
+            const [active_player , set_active_player] = useState(true) ;
+
+
+            const [supportive_prop_generate , set_supportive_prop_generate] = useState(false) ;
+
+            const arr_of_colors = ["green" , "blue" , "red" , "yellow" , "white" , "orange" , "black"] ;
+
+            let random_color_index ;
+
+            const [user_guessed_color_name , set_user_guessed_color_name] = useState("") ;
+
+
+            //_______________________________________________________________________//
+                        function handle_generate_btn_click_function(event_info_object) {
+
+                          // 1: preventing defaults
+                          event_info_object.preventDefault() ;
+
+                          // 2: changing states
+                          set_supportive_prop_generate(true) ;
+
+                          // 3: generating random color for guessing
+                          random_color_index = Math.trunc(Math.random()*7) ;
+                      
+                        }
+
+
+  
+
+//-------------------------------------------------------------------------//
   return(
     <main className="main_box">
 
@@ -12,69 +46,90 @@ export default function App() {
 
       <section className="lower_section"> 
 
+
+            <Player_component
+            name_of_class={"div_player_1"} 
+            player_no={"PLAYER 1"}  
+            active_status={active_player === true ? " active_player" : ""} 
+            supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
+            user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
+            
+            >
+
+              {active_player === true && <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e)}>GENERATE</button>}
+
+
+            </Player_component>
+
+
+
+
+            
+            <Section_middle_component 
+            supportive_prop_generate={supportive_prop_generate}
+            />
+
+
+
+
+
+            <Player_component
+            name_of_class={"div_player_2"}  
+            player_no={"PLAYER 2"} 
+            active_status={active_player === false ? " active_player" : ""}
+            supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
+            user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
+
+
+            
+            >
+
+            {active_player === false && <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e)}>GENERATE</button>}
+
+
+            </Player_component>
         
-        <Player_component name_of_class={"div_player_1"} player_no={"PLAYER 1"} />
 
-        
-        <Section_middle_component />
-
-
-
-        <Player_component name_of_class={"div_player_2"}  player_no={"PLAYER 2"}/>
-        
       </section>
 
 
     </main>
   )
+//-------------------------------------------------------------------------//
+
 }
 
 
-function Section_color_component() {
-
-  return (
-
-  <section className="section_colors">
-
-    <div className="div_actual_colors">
-
-      <div className="div_color_1 div_color"></div>
-      <div className="div_color_2 div_color"></div>
-      <div className="div_color_3 div_color"></div>
-      <div className="div_color_4 div_color"></div>
-      <div className="div_color_5 div_color"></div>
-      <div className="div_color_6 div_color"></div>
-      <div className="div_color_7 div_color"></div>
-      
-
-    </div>
-
-  </section>
-    
-  )
-}
 
 
-function Section_middle_component() {
 
-  return (
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+function Player_component({
 
-    <section className="section_middle">
+name_of_class , 
+player_no ,
+active_player , 
+set_active_player , active_status ,
+children ,
+user_guessed_color_name , set_user_guessed_color_name ,
 
-      <button className="btn_new_game">🔄 NEW GAME</button>
-      <div className="div_question_mark_display">?</div>
-
-  </section>
-
-  )
-}
+}) {
 
 
-function Player_component({name_of_class , player_no }) {
 
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------//
   return(
 
-    <div className={name_of_class} >
+    <div 
+    className={name_of_class+active_status} >
 
       <div className="div_turns_player_no">
 
@@ -86,11 +141,22 @@ function Player_component({name_of_class , player_no }) {
 
       </div>
 
+
       <p className="text_player_score">30</p>
-      <input type="input" className="input_color_name" placeholder="Type color name"/>
-      <button className="btn_generate">GENERATE</button>
+
+      <form className="form_input_color_name">
+       <input type="input" className="input_color_name" placeholder="Type color name"/>
+      </form>
+
+
+      {children}
+
+      
+      
 
     </div>
 
   )
+//-------------------------------------------------------------------------//
+
 }
