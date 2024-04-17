@@ -75,9 +75,36 @@ p{
 
 
 
+.div_tries{
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 15%;
+
+    width: 100px;
+    height: 100px;
+    font-family: gilroy;
+    font-weight: 700;
+    font-size: 80px;
+
+    background-color: white;
+    border-radius: 13px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.278);
 
 
+}
 
+.ul_playing_steps {
+    position: absolute;
+    color: rgb(220, 218, 218);
+    font-family: gilroy;
+}
 
 
 

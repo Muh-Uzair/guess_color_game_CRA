@@ -19,13 +19,13 @@ export default function App() {
 
 
             const [player_1_score , set_player_1_score] = useState(60) ;
-            const [player_1_turns , set_player_1_turns] = useState(2) ;
+            const [player_1_turns , set_player_1_turns] = useState(3) ;
             let player_1_won_check ;
             
 
 
             const [player_2_score , set_player_2_score] = useState(60) ;
-            const [player_2_turns , set_player_2_turns] = useState(2) ;
+            const [player_2_turns , set_player_2_turns] = useState(3) ;
             let player_2_won_check ;
 
     
@@ -67,8 +67,8 @@ export default function App() {
                           set_random_color_index(random_num)  ;
 
                                                     
-                          if((player_no === 1 && player_2_turns < 3 ) && (tries > 0)) {set_player_2_turns(2)}
-                          if((player_no === 2 && player_1_turns < 3) && (tries > 1)) {set_player_1_turns(2)}
+                          if((player_no === 1 && player_2_turns < 3 ) && (tries > 0)) {set_player_2_turns(3)}
+                          if((player_no === 2 && player_1_turns < 3) && (tries > 1)) {set_player_1_turns(3)}
                       
                         }
 
@@ -165,6 +165,32 @@ export default function App() {
             }
 
 
+            //_______________________________________________________________________//
+                      function handle_new_game_btn_click(event_info_object ) {
+                        event_info_object.preventDefault() ;
+
+                        set_active_player(true) ;
+                        set_player_won(false) ;
+                        set_winning_color("") ;
+                        set_tries(2) ;
+                        set_player_1_score(60) ;
+                        set_player_1_turns(3) ;
+                        player_1_won_check ="" ;
+                        set_player_2_score(60) ;
+                        set_player_2_turns(3) ;
+                        player_2_won_check="";
+                        set_supportive_prop_generate(false) ;
+                        set_random_color_index("") ;
+                        set_user_guessed_color_name("") ;
+                        set_no_of_turns(3) ;
+
+                        
+
+                      }
+
+          
+
+
 
 
 
@@ -174,190 +200,213 @@ export default function App() {
 
 //-------------------------------------------------------------------------//
   return(
+
+    <>
+
+    <div className="div_tries">
+      {tries}    
+    </div>
+
+    <ul className="ul_playing_steps">
+      <li>First click on generate button to generate a random color</li>
+      <li>Then type the color that you think will be generated</li>
+      <li>Each pllayer can guess for 3 times</li>
+      <li>Each player can play fro 2 times, Enjoy!!</li>
+    </ul>
+
     <main className="main_box">
 
-      {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-      <Section_color_component />
-      {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
 
 
-      
-      <section className="lower_section"> 
+    {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+    <Section_color_component />
+    {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
 
 
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-            <Player_component
-            name_of_class={"div_player_1"} 
-            active_status={active_player === true ? " active_player" : ""} 
-            supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
-            user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
-            tries={tries}
-            player_1_score={player_1_score}
-            player_2_score={player_2_score}
-            after_win_styles_class={player_1_won_check === true ? " winning_styles" : "" }
-            player_won_check={player_1_won_check}
-            
-            >
+    {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+    <section className="lower_section"> 
 
 
-                  {active_player === true && 
-                  <>
-
-                      <div className="div_turns_player_no">
-
-                        <p className="text_no_turns" style={ player_1_turns === 0 ? {marginLeft:"20px" , backgroundColor:"red"} : {marginLeft:"20px"}}>{player_1_turns}</p> 
-                        
-                        <p className="text_player_no" style={{marginLeft:"65px"}}>PLAYER 1</p>
-                
-                      </div>
-                
-                
-                      <p className="text_player_score">{player_1_score}</p>
-
-                      {tries !== 0 &&                       <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 1)}>
-                        <input type="input" className="input_color_name" 
-                        placeholder="Type color name" value={user_guessed_color_name}
-                        onChange={(e)=>handle_input_change(e)}
-                                                                   
-                        />
-                      </form> }  
-
-                      {tries === 0 &&                       <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 1)}>
-                        <input type="input" className="input_color_name" 
-                        placeholder="Type color name" value={user_guessed_color_name}
-                        onChange={(e)=>handle_input_change(e)}
-                        disabled                                                                   
-                        />
-                      </form> }  
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+          <Player_component
+          name_of_class={"div_player_1"} 
+          active_status={active_player === true ? " active_player" : ""} 
+          supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
+          user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
+          tries={tries}
+          player_1_score={player_1_score}
+          player_2_score={player_2_score}
+          after_win_styles_class={player_1_won_check === true ? " winning_styles" : "" }
+          player_won_check={player_1_won_check}
+          
+          >
 
 
+                {active_player === true && 
+                <>
 
+                    <div className="div_turns_player_no">
 
-                      {tries !== 0 && <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e , 1)}>GENERATE</button> }
-                       
-                  </>
-                  }
-
-                  
-                  {active_player === false && 
-                  <>
-
-                      <div className="div_turns_player_no">
-
-                          <p className="text_no_turns" style={ player_1_turns === 0 ? {marginLeft:"20px" , backgroundColor:"red"} : {marginLeft:"20px"}} >{player_1_turns}</p> 
-
-                          <p className="text_player_no" style={{marginLeft:"65px"}  }  >PLAYER 1</p>
-
-
-                      </div>
-
-
-                      <p className="text_player_score">{player_1_score}</p>
-
-                  
-                      <form className="form_input_color_name">
-                        <input type="input" className="input_color_name" placeholder="Type color name" disabled />
-                      </form>
- 
-                  </>
-                  }
-
-
-
-
-            </Player_component>
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-
-
-
-
-
-
-
-
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-            <Section_middle_component 
-            supportive_prop_generate={supportive_prop_generate}
-            player_won={player_won}
-            winning_color={winning_color}
-            />
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-
-
-
-
-
-
-
-
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-            <Player_component
-            name_of_class={"div_player_2"}  
-            active_status={active_player === false ? " active_player" : ""}
-            supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
-            user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
-            tries={tries}
-            player_1_score={player_1_score}
-            player_2_score={player_2_score}
-            after_win_styles_class={player_2_won_check === true ? " winning_styles" : "" }
-            player_won_check={player_2_won_check}
-            
-            >
-
-                  {active_player === false && 
-                  <>
-                      <div className="div_turns_player_no">
-
-                          <p className="text_player_no" style={ player_2_turns === 0 ? {marginLeft:"143px" , marginRight:"45px" , backgroundColor:"red"} :  { marginLeft:"143px" , marginRight:"45px"} } >PLAYER 2</p>
-
-                          <p className="text_no_turns" style={{marginLeft:"20px"}} >{player_2_turns}</p> 
-
-                      </div>
-
-                      <p className="text_player_score">{player_2_score}</p>
+                      <p className="text_no_turns" style={ player_1_turns === 0 ? {marginLeft:"20px" , backgroundColor:"red"} : {marginLeft:"20px"}}>{player_1_turns}</p> 
                       
-                      <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 2)}>
-                        <input type="input" className="input_color_name" 
-                        placeholder="Type color name" value={user_guessed_color_name}
-                        onChange={(e)=>handle_input_change(e)}
-                        
-                        />
-                      </form>
+                      <p className="text_player_no" style={{marginLeft:"65px"}}>PLAYER 1</p>
+              
+                    </div>
+              
+              
+                    <p className="text_player_score">{player_1_score}</p>
+
+                    {tries !== 0 &&                       <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 1)}>
+                      <input type="input" className="input_color_name" 
+                      placeholder="Type color name" value={user_guessed_color_name}
+                      onChange={(e)=>handle_input_change(e)}
+                                                                
+                      />
+                    </form> }  
+
+                    {tries === 0 &&                       <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 1)}>
+                      <input type="input" className="input_color_name" 
+                      placeholder="Type color name" value={user_guessed_color_name}
+                      onChange={(e)=>handle_input_change(e)}
+                      disabled                                                                   
+                      />
+                    </form> }  
+
+
+
+
+                    {tries !== 0 && <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e , 1)}>GENERATE</button> }
+                    
+                </>
+                }
+
+                
+                {active_player === false && 
+                <>
+
+                    <div className="div_turns_player_no">
+
+                        <p className="text_no_turns" style={ player_1_turns === 0 ? {marginLeft:"20px" , backgroundColor:"red"} : {marginLeft:"20px"}} >{player_1_turns}</p> 
+
+                        <p className="text_player_no" style={{marginLeft:"65px"}  }  >PLAYER 1</p>
+
+
+                    </div>
+
+
+                    <p className="text_player_score">{player_1_score}</p>
+
+                
+                    <form className="form_input_color_name">
+                      <input type="input" className="input_color_name" placeholder="Type color name" disabled />
+                    </form>
+
+                </>
+                }
+
+
+
+
+          </Player_component>
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+
+
+
+
+
+
+
+
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+          <Section_middle_component 
+          supportive_prop_generate={supportive_prop_generate}
+          player_won={player_won}
+          winning_color={winning_color}
+          handle_new_game_btn_click={handle_new_game_btn_click}
+          />
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+
+
+
+
+
+
+
+
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
+          <Player_component
+          name_of_class={"div_player_2"}  
+          active_status={active_player === false ? " active_player" : ""}
+          supportive_prop_generate={supportive_prop_generate} set_supportive_prop_generate={set_supportive_prop_generate}
+          user_guessed_color_name={user_guessed_color_name} set_user_guessed_color_name={set_user_guessed_color_name}
+          tries={tries}
+          player_1_score={player_1_score}
+          player_2_score={player_2_score}
+          after_win_styles_class={player_2_won_check === true ? " winning_styles" : "" }
+          player_won_check={player_2_won_check}
+          
+          >
+
+                {active_player === false && 
+                <>
+                    <div className="div_turns_player_no">
+
+                        <p className="text_player_no" style={ player_2_turns === 0 ? {marginLeft:"143px" , marginRight:"45px" , backgroundColor:"red"} :  { marginLeft:"143px" , marginRight:"45px"} } >PLAYER 2</p>
+
+                        <p className="text_no_turns" style={{marginLeft:"20px"}} >{player_2_turns}</p> 
+
+                    </div>
+
+                    <p className="text_player_score">{player_2_score}</p>
+                    
+                    <form className="form_input_color_name" onSubmit={(e)=> handle_form_submit(e , 2)}>
+                      <input type="input" className="input_color_name" 
+                      placeholder="Type color name" value={user_guessed_color_name}
+                      onChange={(e)=>handle_input_change(e)}
                       
-                      <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e , 2)}>GENERATE</button>  
-                  </>
+                      />
+                    </form>
+                    
+                    <button className="btn_generate" onClick={(e)=> handle_generate_btn_click_function(e , 2)}>GENERATE</button>  
+                </>
+
+                }
+
+                {active_player === true && 
+                <>
+                    <div className="div_turns_player_no">
+
+                        <p className="text_player_no" style={{ marginLeft:"143px" , marginRight:"45px"} } >PLAYER 2</p>
+
+                        <p className="text_no_turns" style={player_2_turns === 0 ? {marginLeft:"20px", background:"red"} : {marginLeft:"20px"}} >{player_2_turns}</p> 
+
+                    </div>
+
+                    <p className="text_player_score">{player_2_score}</p>
+
+                    <form className="form_input_color_name">
+                      <input type="input" className="input_color_name" placeholder="Type color name" disabled />
+                    </form>
+
+                </>
+                }
+
+
+          </Player_component>
+          {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
       
-                  }
 
-                  {active_player === true && 
-                  <>
-                      <div className="div_turns_player_no">
-
-                          <p className="text_player_no" style={{ marginLeft:"143px" , marginRight:"45px"} } >PLAYER 2</p>
-
-                          <p className="text_no_turns" style={player_2_turns === 0 ? {marginLeft:"20px", background:"red"} : {marginLeft:"20px"}} >{player_2_turns}</p> 
-
-                      </div>
-
-                      <p className="text_player_score">{player_2_score}</p>
-
-                      <form className="form_input_color_name">
-                        <input type="input" className="input_color_name" placeholder="Type color name" disabled />
-                      </form>
- 
-                  </>
-                  }
-
-
-            </Player_component>
-            {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
-        
-
-      </section>
+    </section>
+    {/*ICICICICICICIICIICICICICICCIICICICICICICICICICICCIICICICICIC*/}
 
 
     </main>
+
+    
+    </>
   )
+
+
 //-------------------------------------------------------------------------//
 
 }
