@@ -80,7 +80,7 @@ p{
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    top: 15%;
+    top: 15px;
 
     width: 100px;
     height: 100px;
