@@ -13,6 +13,7 @@ export default function App() {
             const [player_won , set_player_won] = useState(false) ;
             const [winning_color , set_winning_color] = useState("") ;
             const [tries , set_tries] = useState(2) ;
+            let tries_fla ;
 
 
 
@@ -89,13 +90,20 @@ export default function App() {
                                 set_player_won(true) ;
                                 set_active_player(!active_player) ;
 
-                                if(player_no === 2 ) { set_tries(tries => tries-1) }                               
+                                
+                                if(player_no === 2 ) { 
+                                  
+                                  set_tries(tries => tries-1) ;
+
+                                  }  
+                                
+
 
                                 
                               }
                               else {
                                 
-                                  if(player_no === 1) { 
+                                if(player_no === 1) { 
 
                                     set_player_1_score((player_1_score) => player_1_score-10 ) ; 
                                     set_player_1_turns(player_1_turns-1) ;
@@ -108,11 +116,13 @@ export default function App() {
                                     set_player_2_turns(player_2_turns-1) ;
                                     if( player_2_turns-1 === 0 ) { set_active_player(true) ; set_tries(tries => tries-1)} 
                                 }
+                              
+
                                 
                               }
 
                         }
-            //_______________________________________________________________________//l
+            //_______________________________________________________________________//
                         function handle_input_change(event_info_object ) {
                           if(!supportive_prop_generate)return ;
                           set_user_guessed_color_name(event_info_object.target.value) ;      
@@ -167,6 +177,7 @@ export default function App() {
             player_2_score={player_2_score}
             player_1_won={player_1_won} set_player_1_won={set_player_1_won} 
             player_2_won={player_2_won} set_player_2_won={set_player_2_won} 
+            // after_win_styles_class={player_1_won === true ? "winning_styles" : "" }
             
             >
 
@@ -272,6 +283,7 @@ export default function App() {
             player_2_score={player_2_score}
             player_1_won={player_1_won} set_player_1_won={set_player_1_won} 
             player_2_won={player_2_won} set_player_2_won={set_player_2_won} 
+            // after_win_styles_class={player_2_won === true ? "winning_styles" : "" }
             
             >
 
@@ -365,18 +377,12 @@ player_2_score ,
 player_1_won , set_player_1_won ,
 player_2_won , set_player_2_won , 
 
+
 }) {
 
 
 
-            if(tries === 0) {
-
-              if(player_1_score === player_2_score ) { console.log("Game Over")} ;
-
-              if(player_1_score > player_2_score){ console.log("Player 1 : WINNER ") ; set_player_1_won(true) }
-              else if(player_1_score < player_2_score){ console.log("Player 2 : WINNER ") ; set_player_2_won(true)}
-              
-            }
+ 
 
 
 
