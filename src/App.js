@@ -13,25 +13,27 @@ export default function App() {
             const [player_won , set_player_won] = useState(false) ;
             const [winning_color , set_winning_color] = useState("") ;
             const [tries , set_tries] = useState(2) ;
-            let tries_fla ;
+            let tries_flag = tries ;
 
 
 
 
             const [player_1_score , set_player_1_score] = useState(60) ;
             const [player_1_turns , set_player_1_turns] = useState(2) ;
-            const [player_1_won , set_player_1_won] = useState(false) ;
+            let player_1_won_check ;
             
 
 
             const [player_2_score , set_player_2_score] = useState(60) ;
             const [player_2_turns , set_player_2_turns] = useState(2) ;
-            const [player_2_won , set_player_2_won] = useState(false) ;
+            let player_2_won_check ;
 
-
+    
 
 
             const arr_of_colors = ["green" , "blue" , "red" , "yellow" , "purple" , "orange" , "pink"] ;
+
+
 
 
 
@@ -93,7 +95,7 @@ export default function App() {
                                 
                                 if(player_no === 2 ) { 
                                   
-                                  set_tries(tries => tries-1) ;
+                                  set_tries(tries=> tries-1) ;
 
                                   }  
                                 
@@ -114,7 +116,10 @@ export default function App() {
 
                                     set_player_2_score((player_2_score) => player_2_score-10 ) ;
                                     set_player_2_turns(player_2_turns-1) ;
-                                    if( player_2_turns-1 === 0 ) { set_active_player(true) ; set_tries(tries => tries-1)} 
+                                    if( player_2_turns-1 === 0 ) { 
+                                      set_active_player(true) ; 
+                                      set_tries(tries=> tries-1)
+                                    } 
                                 }
                               
 
@@ -148,6 +153,20 @@ export default function App() {
 
 
 
+            if(tries_flag === 0) {
+
+              if(player_1_score > player_2_score) {
+                player_1_won_check = true ; 
+              }
+              else if(player_1_score < player_2_score) {    
+                player_2_won_check = true ; 
+              }
+              
+            }
+
+
+
+
 
 
 
@@ -175,9 +194,8 @@ export default function App() {
             tries={tries}
             player_1_score={player_1_score}
             player_2_score={player_2_score}
-            player_1_won={player_1_won} set_player_1_won={set_player_1_won} 
-            player_2_won={player_2_won} set_player_2_won={set_player_2_won} 
-            // after_win_styles_class={player_1_won === true ? "winning_styles" : "" }
+            after_win_styles_class={player_1_won_check === true ? " winning_styles" : "" }
+            player_won_check={player_1_won_check}
             
             >
 
@@ -281,9 +299,8 @@ export default function App() {
             tries={tries}
             player_1_score={player_1_score}
             player_2_score={player_2_score}
-            player_1_won={player_1_won} set_player_1_won={set_player_1_won} 
-            player_2_won={player_2_won} set_player_2_won={set_player_2_won} 
-            // after_win_styles_class={player_2_won === true ? "winning_styles" : "" }
+            after_win_styles_class={player_2_won_check === true ? " winning_styles" : "" }
+            player_won_check={player_2_won_check}
             
             >
 
@@ -374,8 +391,8 @@ user_guessed_color_name , set_user_guessed_color_name ,
 tries ,
 player_1_score ,
 player_2_score ,
-player_1_won , set_player_1_won ,
-player_2_won , set_player_2_won , 
+after_win_styles_class ,
+player_won_check ,
 
 
 }) {
@@ -396,8 +413,9 @@ player_2_won , set_player_2_won ,
   return(
 
     <div 
-    className={name_of_class+active_status} 
-    style={tries === 0 ? {backgroundColor:"rgba(0 , 0 , 0 , 0)"} : {}}
+    className={name_of_class+active_status } 
+    style={tries === 0 ? 
+      player_won_check  === true ? {backgroundColor:"rgba(18, 190, 18, 0.4)"} : {backgroundColor:"rgba(0 , 0 , 0 , 0)"} : {}}
     >
 
 
